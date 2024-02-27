@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"math"
-	"strconv"
 )
 
 func add(x int, y int) int {
@@ -171,13 +170,62 @@ func main() {
 
 	// Error handeling
 
-	val, err := strconv.Atoi("43a")
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Printf("The int value of this string is %d\n", val)
-	}
-
+	// val, err := strconv.Atoi("43a")
+	// if err != nil {
+	// 	fmt.Println(err)
+	// } else {
+	// 	fmt.Printf("The int value of this string is %d\n", val)
+	// }
 	// var err error = errors.New("Custom error");
 
+	// Loops
+	// for i := 0; i < 10; i++ {
+	// 	fmt.Println("Go is best for backend")
+	// }
+
+	// // For is Go's "while"
+	// i := 10
+	// for i > 0 {
+	// 	fmt.Println("Go is a compiled language")
+	// 	i -= 1
+	// }
+
+	// Arrays
+
+	// arr := [5]int{1, 2, 3, 4, 5}
+	// for i := 0; i < len(arr); i++ {
+	// 	fmt.Println(arr[i])
+	// }
+
+	// Slice (reference of array)
+	// slice is built over an array
+	// if the size of slice becomes greater than array new array(2*n) is created and the old values are copied to the new location
+
+	// s1 := arr[1:4]
+
+	// for i := 0; i < len(s1); i++ {
+	// 	fmt.Printf("%d ", s1[i])
+	// }
+
+	// we can create slice without creating an array using make
+	// name   (type)  (size) (max size of underlying arr)
+	// mySlice := make([]int,5,10)
+	// max size is opt
+	// mySlice := make([]int,5)
+
+	// fmt.Println(test(1, 2, 3, 4, 5))
+
+}
+
+// Variadic functions
+// fuctions that can take multiple arguments
+
+func test(nums ...int) int {
+	n := len(nums)
+	ans := 0
+	for i := 0; i < n; i++ {
+		ans += nums[i]
+	}
+
+	return ans
 }
