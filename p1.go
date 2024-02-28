@@ -111,6 +111,10 @@ func dogIntro(d dog) {
 	d.walk()
 }
 
+type StructKey struct {
+	Country, State string
+}
+
 func main() {
 	fmt.Println("Hello World")
 
@@ -119,17 +123,19 @@ func main() {
 	msg := fmt.Sprintf("Hello %v", name)
 	fmt.Println(msg)
 
+	//! rune for char in go
+
 	// fuctions
 	// a := add(10, 15)
 	// fmt.Println(a)
 
-	// multiple retuens and ignoring return
+	//? multiple returns and ignoring return
 	// sq, _ := multipleRet(7)
 	// _, cu2 := multipleRet(9)
 	// fmt.Println(sq)
 	// fmt.Println(cu2)
 
-	//  structs
+	//* structs
 	// person1 := Person{}
 	// person1.name = "Ankit"
 	// person1.age = 22
@@ -168,7 +174,7 @@ func main() {
 	// }
 	// dogIntro(dog1)
 
-	// Error handeling
+	//* Error handeling
 
 	// val, err := strconv.Atoi("43a")
 	// if err != nil {
@@ -183,23 +189,23 @@ func main() {
 	// 	fmt.Println("Go is best for backend")
 	// }
 
-	// // For is Go's "while"
+	//! For is Go's "while"
 	// i := 10
 	// for i > 0 {
 	// 	fmt.Println("Go is a compiled language")
 	// 	i -= 1
 	// }
 
-	// Arrays
+	//* Arrays
 
 	// arr := [5]int{1, 2, 3, 4, 5}
 	// for i := 0; i < len(arr); i++ {
 	// 	fmt.Println(arr[i])
 	// }
 
-	// Slice (reference of array)
-	// slice is built over an array
-	// if the size of slice becomes greater than array new array(2*n) is created and the old values are copied to the new location
+	//* Slice (reference of array)
+	//? slice is built over an array
+	//? if the size of slice becomes greater than array new array(2*n) is created and the old values are copied to the new location
 
 	// s1 := arr[1:4]
 
@@ -207,18 +213,78 @@ func main() {
 	// 	fmt.Printf("%d ", s1[i])
 	// }
 
-	// we can create slice without creating an array using make
+	//? we can create slice without creating an array using make
 	// name   (type)  (size) (max size of underlying arr)
 	// mySlice := make([]int,5,10)
 	// max size is opt
 	// mySlice := make([]int,5)
+	// shorthand for slice mySlice := []int{}
 
 	// fmt.Println(test(1, 2, 3, 4, 5))
 
+	//* 2D slice
+	// mySlice := [][]int{}
+	// mySlice = createMatrix(4, 4)
+	// fmt.Print(mySlice)
+	// better way of iterating slices
+	// for i, arr := range mySlice {
+	// 	for j, v := range arr {
+	// 		fmt.Printf("mySlice[%d][%d] = %d\n", i, j, v)
+	// 	}
+	// }
+
+	//* Maps (refrence as slice)
+	//! Map := make(map[key_type]value_type)
+	// or
+	// myMap := map[string]int{
+	// 	"Ankit": 14,
+	// 	"Rahul": 46,
+	// 	"Aryan": 21,
+	// 	"Trey":  0,
+	// }
+	// myMap["KDB"] = 21
+
+	// delete(myMap, "Trey")
+
+	//? To check whether an element exists in map or not
+	// val, ok := myMap["JP"]
+	// if ok1 {
+	// 	fmt.Println("gg")
+	// } else {
+	// 	fmt.Print("nope")
+	// }
+	//? or (better way)
+	// if _ ok := map["JP"]; ok { //code } else { //code }
+
+	//? Iterating map
+	// for key, val := range myMap {
+	// 	fmt.Printf("%s : %d\n", key, val)
+	// }
+
+	//* Struct as key (netter than using nested maps)
+
+	countryAqiMap := make(map[StructKey]int)
+	countryAqiMap[StructKey{"IND", "DEL"}] = 300
+	countryAqiMap[StructKey{"IND", "MU"}] = 100
+	countryAqiMap[StructKey{"ENG", "LON"}] = 150
+	countryAqiMap[StructKey{"USA", "NY"}] = 200
+
+	for key, val := range countryAqiMap {
+		fmt.Printf("[%s][%s] : %d\n", key.Country, key.State, val)
+	}
+
+	//TODO: Currying: Takes function as an argument and returns another function.
+
+	//! Defer keyword executes a function at the end of the function
+
+	//! Closure: Those functions that uses var outside its body (HOF)
+
+	//? Pointers are same as C++ & -> reference * -> dereference
+
 }
 
-// Variadic functions
-// fuctions that can take multiple arguments
+//* Variadic functions
+//? fuctions that can take multiple arguments
 
 func test(nums ...int) int {
 	n := len(nums)
@@ -228,4 +294,16 @@ func test(nums ...int) int {
 	}
 
 	return ans
+}
+
+func createMatrix(rows, cols int) [][]int {
+	matrix := make([][]int, 0)
+	for i := 0; i < rows; i++ {
+		temp := make([]int, 0)
+		for j := 0; j < cols; j++ {
+			temp = append(temp, (i+1)*(j+1))
+		}
+		matrix = append(matrix, temp)
+	}
+	return matrix
 }
