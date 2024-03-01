@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"time"
 )
 
 func add(x int, y int) int {
@@ -263,15 +264,15 @@ func main() {
 
 	//* Struct as key (netter than using nested maps)
 
-	countryAqiMap := make(map[StructKey]int)
-	countryAqiMap[StructKey{"IND", "DEL"}] = 300
-	countryAqiMap[StructKey{"IND", "MU"}] = 100
-	countryAqiMap[StructKey{"ENG", "LON"}] = 150
-	countryAqiMap[StructKey{"USA", "NY"}] = 200
+	// countryAqiMap := make(map[StructKey]int)
+	// countryAqiMap[StructKey{"IND", "DEL"}] = 300
+	// countryAqiMap[StructKey{"IND", "MU"}] = 100
+	// countryAqiMap[StructKey{"ENG", "LON"}] = 150
+	// countryAqiMap[StructKey{"USA", "NY"}] = 200
 
-	for key, val := range countryAqiMap {
-		fmt.Printf("[%s][%s] : %d\n", key.Country, key.State, val)
-	}
+	// for key, val := range countryAqiMap {
+	// 	fmt.Printf("[%s][%s] : %d\n", key.Country, key.State, val)
+	// }
 
 	//TODO: Currying: Takes function as an argument and returns another function.
 
@@ -280,6 +281,27 @@ func main() {
 	//! Closure: Those functions that uses var outside its body (HOF)
 
 	//? Pointers are same as C++ & -> reference * -> dereference
+
+	//* Concurency in GO
+	// go func1()
+	// go func2()
+	//? func1 and func2 will be executed parallelly go will create seperate threads
+
+	// sendMail("Stacy")
+	// sendMail("Zylbrad")
+
+	// create a channel
+	// ch := make(chan int)
+
+	// SEND DATA TO A CHANNEL
+	// ch <- 69
+
+	// The <- operator is called the channel operator. Data flows in the direction of the arrow. This operation will block until another goroutine is ready to receive the value.
+
+	// RECEIVE DATA FROM A CHANNEL
+	// v := <-ch
+
+	//! SELECT IS SWITCH FOR CHANNEL
 
 }
 
@@ -306,4 +328,15 @@ func createMatrix(rows, cols int) [][]int {
 		matrix = append(matrix, temp)
 	}
 	return matrix
+}
+
+func sendMail(message string) {
+	go func() {
+		time.Sleep(time.Microsecond * 250)
+		fmt.Printf("Email Recieved: %s\n", message)
+	}()
+
+	fmt.Printf("Email sent: %s\n", message)
+
+	time.Sleep(time.Microsecond * 300)
 }
